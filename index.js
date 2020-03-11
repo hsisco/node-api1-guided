@@ -22,6 +22,20 @@ server.get('/hey', (req, res) => {
 
 server.get('/favicon.ico', (req, res) => { res.status(204) });
 
+// Create
+server.post('/hubs', (req, res) => {
+  const hubInfo = req.body;
+
+  db.add(hubInfo)
+    .then(newObject => {
+      res.status(201).json({ success: true, newObject });
+    })
+    .catch(err => {
+      res.status(500).json({ success: false, err });
+    });
+});
+
+// Read
 server.get('/hubs', (req, res) => {
   db.find()
     .then(hubs => {
@@ -30,4 +44,15 @@ server.get('/hubs', (req, res) => {
     .catch(err => {
       res.status(500).json({ success: false, err });
     });
-})
+});
+
+// Update
+server.get('/hubs', (req, res) => {
+  db.find()
+    .then(hubs => {
+      res.status(200).json({ hubs });
+    })
+    .catch(err => {
+      res.status(500).json({ success: false, err });
+    });
+});
